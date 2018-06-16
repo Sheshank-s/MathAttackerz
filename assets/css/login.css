@@ -1,0 +1,17 @@
+body {
+  background: url('../images/backgrounds/19.jpg');
+  background-position: center;
+  display: block;
+}
+.demo-card-wide.mdl-card {
+  width: 80%;
+  margin-left: 20px;
+}
+
+.demo-card-wide.mdl-card .form {
+  margin-left: 20px;
+}
+.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored {
+  width: fit-content;
+  display: inline;
+}

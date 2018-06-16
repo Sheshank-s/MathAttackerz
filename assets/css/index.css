@@ -1,0 +1,60 @@
+.basic-background {
+  background: url('../images/backgrounds/8.jpg');
+  background-position: center;
+  height: 100%;
+  display: block;
+}
+
+.slogan {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #f9f9f9;
+  font-weight: 700;
+  font-size: 60px;
+  padding-top: 150px;
+  margin: 30px 50px;
+}
+.sub-slogan {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #f9f9f9;
+  font-weight: 400;
+  font-size: 20px;
+  margin: 30px 50px;
+}
+
+@media only screen and (max-width: 1016px) {
+  .slogan {
+    font-size: 40px;
+    padding-top: 150px;
+  }
+  .sub-slogan {
+    font-size: 18px;
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .slogan {
+    font-size: 35px;
+    padding-top: 150px;
+  }
+  .sub-slogan {
+    font-size: 17px;
+    margin-top: 30px;
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .slogan {
+    font-size: 35px;
+    padding-top: 150px;
+    margin: 0px 20px;
+  }
+  .sub-slogan {
+    font-size: 16px;
+    margin-top: 30px;
+    margin: 30px 20px;
+  }
+}
