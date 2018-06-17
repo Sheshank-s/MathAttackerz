@@ -32,7 +32,11 @@ function logout() {
 function getScore() {
   var user = firebase.auth().currentUser;
   var starCountRef = firebase.database().ref('users/' + user.uid + '/score');
+  var starCountRef2 = firebase.database().ref('users/' + user.uid + '/username');
   starCountRef.on('value', function(snapshot) {
     document.getElementById("score").innerText = snapshot.val();
+  });
+  starCountRef2.on('value', function(snapshot) {
+    document.getElementById("name").innerText = snapshot.val();
   });
 }

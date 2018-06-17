@@ -121,6 +121,9 @@ function evaluateAnswerMultiplication() {
 
       var user = firebase.auth().currentUser;
       firebase.database().ref('users/' + user.uid).set({
+        email: user.email,
+        profile_picture: user.photoURL,
+        username: user.displayName,
         score: parseInt(document.getElementById("score").innerText)  + points,
       }).catch(function(error) {
         console.log(error);
@@ -137,6 +140,9 @@ function evaluateAnswerMultiplication() {
 
       var user = firebase.auth().currentUser;
       firebase.database().ref('users/' + user.uid).set({
+        email: user.email,
+        profile_picture: user.photoURL,
+        username: user.displayName,
         score: parseInt(document.getElementById("score").innerText) - 2,
       }).catch(function(error) {
         console.log(error);
@@ -159,6 +165,9 @@ function evaluateAnswerAddition() {
 
       var user = firebase.auth().currentUser;
       firebase.database().ref('users/' + user.uid).set({
+        email: user.email,
+        profile_picture: user.photoURL,
+        username: user.displayName,
         score: parseInt(document.getElementById("score").innerText)  + points,
       }).catch(function(error) {
         console.log(error);
@@ -175,6 +184,9 @@ function evaluateAnswerAddition() {
 
       var user = firebase.auth().currentUser;
       firebase.database().ref('users/' + user.uid).set({
+        email: user.email,
+        profile_picture: user.photoURL,
+        username: user.displayName,
         score: parseInt(document.getElementById("score").innerText) - 2,
       }).catch(function(error) {
         console.log(error);
