@@ -32,6 +32,7 @@ var sessionCorrect = 0;
 var sessionWrong = 0;
 
 function rules() {
+  responsiveVoice.speak("Answer the question. If you get it right, you get amount of points added to your total. If you get it wrong, you don't lose any points. You'll get a short description on how the problem was solved. Then, you can move to the next question. Click on of the top buttons to change the mode.");
   swal("Rules:", "Answer the question. If you get it right, you get amount of points added to your total. If you get it wrong, you don't lose any points. You'll get a short description on how the problem was solved. Then, you can move to the next question. Click on of the top buttons to change the mode.", {
     icon: "info"
   }).then(function() {
@@ -50,7 +51,7 @@ function addition() {
   var questionPartTwo = questionBank[randomQuestionNumber]["namePartTwo"] + " " + currentNumber2;
   var questionPartThree = questionBank[randomQuestionNumber]["namePartThree"];
   var question = questionPartOne + " " + questionPartTwo + " " + questionPartThree;
-
+  responsiveVoice.speak(question);
   questionDiv.innerHTML =
   `<div class="question-title">Addition</div>
   <div class="question-body">` + question + `</div>
@@ -85,7 +86,7 @@ function multiplication() {
   var questionPartTwo = questionBank[randomQuestionNumber]["namePartTwo"] + " " + currentNumber2;
   var questionPartThree = questionBank[randomQuestionNumber]["namePartThree"];
   var question = questionPartOne + " " + questionPartTwo + " " + questionPartThree;
-
+  responsiveVoice.speak(question);
   questionDiv.innerHTML =
   `<div class="question-title">Multiplication</div>
   <div class="question-body">` + question + `</div>
