@@ -26,7 +26,7 @@
 .page-content {
   width: 80%;
   margin: 50px auto;
-  background-color: rgb(33,150,243);
+  background-color: #ececec;
   height: 1000px;
   box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);
 }
@@ -57,8 +57,36 @@
 }
 
 body {
-    margin: 0;
-    background-color: #f9a93c;
+  margin: 0;
+  background-color: #f9a93c;
+}
+
+.question-content {
+  color: #191919;
+  font-weight: 900;
+  font-size: 30px;
+}
+.question-title {
+
+}
+.question-body {
+  font-weight: 500;
+  font-size: 16px;
+  margin: 20px;
+}
+.mdl-textfield__input:focus {
+  outline: none;
+}
+.session-content {
+  font-size: 18px;
+}
+.session-wrong {
+  font-weight: 700;
+  color: red;
+}
+.session-correct {
+  font-weight: 700;
+  color: green;
 }
 
 @media only screen and (max-width: 1016px) {
@@ -81,6 +109,17 @@ body {
   }
 }
 
+
+@media only screen and (max-width: 516px) {
+  #rules-button {
+    display: none;
+  }
+}
+@media only screen and (min-width: 516px) {
+  #rules-button {
+    display: inline;
+  }
+}
 
 @media only screen and (max-width: 500px) {
   .slogan {

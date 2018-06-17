@@ -2,7 +2,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     getScore();
   } else {
-    setTimeout(function() {swal("Your already signed in.", "Redirecting to portal...", {
+    setTimeout(function() {swal("You're not signed in'", "Redirecting to login...", {
       buttons: false,
       timer: 1000,
     }).then(function() {

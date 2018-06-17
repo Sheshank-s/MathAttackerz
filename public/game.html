@@ -62,23 +62,43 @@
         <div class="mdl-typography--text-center">
           <div class="page-content">
             <div class="score-container-div">
-              <div class="logo-font slogan">Select your mode..</div>
-              <div class="logo-font sub-slogan">Practice some more skills.</div>
-
+              <div class="logo-font slogan" id="title">Select your mode..</div>
               <a>
                 <!-- Colored raised button -->
-                <button onclick="window.location.href= 'game.html';" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                  Get more points
+                <button onclick="addition()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                  Addition
                 </button>
               </a>
               &nbsp;
               <a>
                 <!-- Colored raised button -->
-                <button onclick="logout()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                  Logout
+                <button onclick="multiplication()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                  Multiplication
+                </button>
+              </a>
+              &nbsp;
+              <a>
+                <!-- Colored raised button -->
+                <button id="rules-button" onclick="rules()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                  View rules
                 </button>
               </a>
             </div>
+
+
+            <br>
+
+            <div class="question-content" id="question-content">
+
+            </div>
+
+            <br>
+            <div class="session-content">
+              <span class="session-label">Number of questions: </span>
+              <span class="session-correct">Correct <span class="session-correct-number">0</span></span>,
+              <span class="session-wrong">Wrong <span class="session-wrong-number">0</span></span>
+            </div>
+
 
           </div>
 
@@ -89,6 +109,8 @@
     <script src="assets/js/config.js" ></script>
 
     <script src="assets/js/game.js" ></script>
+    <script src="assets/questions/multiplication-question.js" ></script>
+    <script src="assets/questions/addition-question.js" ></script>
   </body>
 </html>
 -
