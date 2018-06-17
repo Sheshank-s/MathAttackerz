@@ -12,6 +12,22 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 
+function logout() {
+  firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+  }).catch(function(error) {
+    // An error happened.
+  }).then(function() {
+    swal("Logged out!", "Redirecting to login page...", {
+      buttons: false,
+      icon: "success",
+      timer: 1000,
+    }).then(function() {
+      window.location.href = "./login.html";
+    });
+  });
+}
+
 var sessionCorrect = 0;
 var sessionWrong = 0;
 
