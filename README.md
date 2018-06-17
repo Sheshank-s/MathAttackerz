@@ -8,8 +8,6 @@ Where you can see this
 
 Currently, I'm not running this on Github Pages. I'm runnning it on the Firebase Hosting app. If you would like to preview the site, please visit [MathAttackerz.firebaseapp.com](https://mathattackerz.firebaseapp.com)
 
-* * *
-
 How can you contribute to this?
 -------------------------------
 
