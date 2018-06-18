@@ -21,10 +21,10 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="assets/css/game.css">
+    <link rel="stylesheet" href="assets/css/settings.css">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <script src="assets/js/scripts.js" ></script>
     <!-- Firebase App is always required and must be first -->
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
@@ -74,44 +74,71 @@
         <div class="mdl-typography--text-center">
           <div class="page-content">
             <div class="score-container-div">
-              <div class="logo-font slogan" id="title">Select your mode..</div>
+              <div class="logo-font slogan">Settings</div>
+              <div class="logo-font sub-slogan">Here is where you can change the information about your self.</div>
+
               <a>
                 <!-- Colored raised button -->
-                <button onclick="addition()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                  Addition
+                <button onclick="window.location.href= 'game.html';" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                  Get more points
                 </button>
               </a>
               &nbsp;
               <a>
                 <!-- Colored raised button -->
-                <button onclick="multiplication()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                  Multiplication
-                </button>
-              </a>
-              &nbsp;
-              <a>
-                <!-- Colored raised button -->
-                <button id="rules-button" onclick="rules()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                  View rules
+                <button onclick="logout()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                  Logout
                 </button>
               </a>
             </div>
 
+            <div class="recent-activity">
+              <h5 style="margin-bottom: 0px;">Information about you:</h5>
+              <p style="color: #888888;">Change the information by editing the text box and clicking submit.</p>
+              <div>
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <tbody>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Email:</td>
+                    <td class="mdl-data-table__cell--non-numeric"><span id="email"></span></td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="email-input">
+                        <label class="mdl-textfield__label" for="email">New email here...</label>
+                      </div>
 
-            <br>
-            <br>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Username:</td>
+                    <td class="mdl-data-table__cell--non-numeric"><span id="name"></span></td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="name-input">
+                        <label class="mdl-textfield__label" for="name">New username here...</label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Photo Link:</td>
+                    <td class="mdl-data-table__cell--non-numeric"><img id="profile-picture"></img></td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="profile-picture-input">
+                        <label class="mdl-textfield__label" for="name">New profile picture link here...</label>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <br>
 
-            <div class="question-content" id="question-content">
-
+              <!-- Accent-colored raised button with ripple -->
+              <button onclick="updateSettings()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                Submit
+              </button>
+              </div>
             </div>
-
-            <br>
-            <div class="session-content">
-              <span class="session-label">Number of questions: </span>
-              <span class="session-correct">Correct <span class="session-correct-number">0</span></span>,
-              <span class="session-wrong">Wrong <span class="session-wrong-number">0</span></span>
-            </div>
-
 
           </div>
 
@@ -119,11 +146,9 @@
       </div>
 
     </div>
+
     <script src="assets/js/config.js" ></script>
 
-    <script src="assets/js/game.js" ></script>
-    <script src="assets/questions/multiplication-question.js" ></script>
-    <script src="assets/questions/addition-question.js" ></script>
+    <script src="assets/js/settings.js" ></script>
   </body>
 </html>
--

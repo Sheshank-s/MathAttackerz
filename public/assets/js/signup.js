@@ -5,7 +5,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       timer: 1000,
     }).then(function() {
       window.location.href = "./portal.html";
-    });}, 2000);
+    });}, 5000);
   } else {
     // No user is signed in.
   }
@@ -25,6 +25,7 @@ function signup() {
     errorMessage = error.message;
     // ...
   }).then(function () {
+    console.log(errorMessage);
     if (errorMessage == null) {
       swal({
         title: "Success!",
