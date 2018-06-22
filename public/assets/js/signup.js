@@ -79,39 +79,55 @@ function signup() {
 }
 
 function signUpGoogle() {
+  var errorCode;
+  var errorMessage;
+  var email;
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider).catch(function(error) {
-    var errorCode = error.errorCode;
-    var errorMessage = error.errorMessage;
-  }).then(function () {
-    swal({
-      title: "Success!",
-      text: "You have signed up! Redirecting to login page...",
-      icon: "success",
-      timer: 1000,
-    }).then(function() {
-      var user = firebase.auth().currentUser;
-      var name, email, photoUrl, uid, emailVerified, score;
-      name = user.displayName;
-      email = user.email;
-      photoUrl = user.photoURL;
-      // emailVerified = user.emailVerified;
-      uid = user.uid;
-      console.log(name + " " + email + " " + photoUrl + " " + uid);
-      score = 0;
-
-      // Write user to db
-      firebase.database().ref('users/' + uid).set({
-        username: name,
-        email: email,
-        profile_picture : photoUrl,
-        score: score,
-      }).catch(function(error) {
-        console.log(error);
+    errorCode = error.errorCode;
+    errorMessage = error.errorMessage;
+    email = error.email;
+    console.log(errorCode);
+  }).then(function (result) {
+    console.log(errorCode + email);
+    console.log(errorCode == null && email != null);
+    if (errorCode == null && email != null){
+      swal({
+        title: "Success!",
+        text: "You have signed up! Redirecting to login page...",
+        icon: "success",
+        timer: 1000,
       }).then(function() {
-        window.location.href = "./portal.html";
+        var user = result.user;
+        var name, email, photoUrl, uid, emailVerified, score;
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        // emailVerified = user.emailVerified;
+        uid = user.uid;
+        console.log(name + " " + email + " " + photoUrl + " " + uid);
+        score = 0;
+
+        // Write user to db
+        firebase.database().ref('users/' + uid).set({
+          username: name,
+          email: email,
+          profile_picture : photoUrl,
+          score: score,
+        }).catch(function(error) {
+          console.log(error);
+        }).then(function() {
+          window.location.href = "./portal.html";
+        });
       });
-    });
+    } else {
+      swal({
+        title: "Error!",
+        text: "Something went wrong. Try again and if you keep recieving this error then signin with a different option.",
+        icon: "error",
+        timer: 5000,
+      })
+    }
 });
 }
 
