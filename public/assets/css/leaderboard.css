@@ -27,6 +27,7 @@
   width: 80%;
   margin: 50px auto;
   background-color: #ececec;
+  height: fit-content;
   padding-bottom: 50px;
   min-height: 1000px;
   box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);
@@ -57,23 +58,13 @@
   padding: 50px 0px;
 }
 
+#overall-leaderboard-table, #leaderboard {
+  margin: auto;
+}
+
 body {
     margin: 0;
     background-color: #f9a93c;
-}
-
-.recent-activity {
-  padding: 50px 100px;
-  text-align: left;
-
-}
-#overall-leaderboard-table {
-  /* min-width: 80%; */
-}
-
-#overall-leaderboard-table .mdl-data-table__cell--non-numeric {
-  font-weight: 800;
-  width: 70%;
 }
 
 @media only screen and (max-width: 1016px) {
