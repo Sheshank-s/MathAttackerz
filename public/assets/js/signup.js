@@ -82,15 +82,18 @@ function signup() {
 function signUpGoogle() {
   var errorCode;
   var errorMessage;
-  var email;
+  var email = "john@john.com";
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider).catch(function(error) {
     errorCode = error.errorCode;
     errorMessage = error.errorMessage;
     email = error.email;
-    console.log(errorCode);
+    console.log(error);
   }).then(function (result) {
-    console.log(errorCode + email);
+    console.log(errorCode + " " + errorMessage);
+    console.log(errorCode);
+    console.log(errorMessage);
+
     console.log(errorCode == null && email != null);
     if (errorCode == null && email != null){
       swal({
@@ -115,6 +118,7 @@ function signUpGoogle() {
           email: email,
           profile_picture : photoUrl,
           score: score,
+          statistics: {"addition":{"points": 0, "questions": 0}, "multiplication":{"points": 0, "questions": 0}},
         }).catch(function(error) {
           console.log(error);
         }).then(function() {

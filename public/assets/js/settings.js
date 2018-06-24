@@ -90,6 +90,7 @@ function updateSettings() {
       email: email,
       profile_picture : photoUrl,
       score: score,
+      statistics: snapshot.val().statistics,
     }).catch(function(error) {
       console.log(error);
     }).then(function() {
