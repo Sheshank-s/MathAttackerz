@@ -43,8 +43,8 @@ function addition() {
   var questionDiv = document.getElementById("question-content");
 
   var questionBank = additionQuestion;
-  currentNumber1 = Math.floor(Math.random() * 10) + 4;
-  currentNumber2 = Math.floor(Math.random() * 10) + 4;
+  currentNumber1 = Math.floor(Math.random() * 10) + 1;
+  currentNumber2 = Math.floor(Math.random() * 10) + 1;
   var randomQuestionNumber = Math.floor(Math.random() * (questionBank.length));
   var questionPartOne = questionBank[randomQuestionNumber]["namePartOne"] + " " + currentNumber1;
   var questionPartTwo = questionBank[randomQuestionNumber]["namePartTwo"] + " " + currentNumber2;
@@ -79,8 +79,8 @@ function multiplication() {
   var questionDiv = document.getElementById("question-content");
 
   var questionBank = multiplicationQuestion;
-  currentNumber1 = Math.floor(Math.random() * 10) + 4;
-  currentNumber2 = Math.floor(Math.random() * 10) + 4;
+  currentNumber1 = Math.floor(Math.random() * 10) + 3;
+  currentNumber2 = Math.floor(Math.random() * 10) + 3;
   var randomQuestionNumber = Math.floor(Math.random() * (questionBank.length));
   var questionPartOne = questionBank[randomQuestionNumber]["namePartOne"] + " " + currentNumber1;
   var questionPartTwo = questionBank[randomQuestionNumber]["namePartTwo"] + " " + currentNumber2;
@@ -101,11 +101,23 @@ function multiplication() {
   <button style="display:inline-block;" onclick="evaluateAnswerMultiplication()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
     Submit
   </button>`;
+
+}
+var multiplier;
+function getScore() {
   document.getElementById("title").innerHTML = "Score: <span id='score'></span>";
   var user = firebase.auth().currentUser;
+  console.log(user.uid);
   var starCountRef = firebase.database().ref('users/' + user.uid + '/score');
   starCountRef.on('value', function(snapshot) {
     document.getElementById("score").innerText = snapshot.val();
+  });
+  return firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+    if (snapshot.val().level > 1) {
+      multiplier = (snapshot.val().level-1)*5;
+    } else {
+      multiplier = 1;
+    }
   });
 }
 
@@ -113,10 +125,12 @@ function evaluateAnswerMultiplication() {
   var answer = currentNumber1 * currentNumber2;
   if (parseInt(document.getElementById("question-input-field").value) == answer) {
     var points = Math.floor(Math.floor(Math.random()*4) + (currentNumber1+currentNumber2)/2);
-    responsiveVoice.speak("You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " points for that question.");
-    swal("Correct!", "You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " points for that question.", {
+    responsiveVoice.speak("You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.");
+
+    swal("Points: +" + points*multiplier, "You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.", {
       "icon": "success"
     }).then(function() {
+      points *= multiplier;
       sessionCorrect++;
       document.getElementsByClassName("session-correct-number")[0].innerHTML = sessionCorrect;
       // Write user to db
@@ -126,25 +140,53 @@ function evaluateAnswerMultiplication() {
       var databaseUser = firebase.database().ref('users/' + user.uid);
       var statistics1 = {"addition": {"questions": 0, "points": 0}, "multiplication": {"questions": 0, "points": 0}};
       var score;
+      var level;
       return firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
         console.log(snapshot.val());
         console.log(snapshot.val()["statistics"]);
         statistics1 = snapshot.val()["statistics"];
         score1 = snapshot.val()["score"];
-        console.log(statistics1);
-        statistics1["multiplication"]["points"] += points;
-        statistics1["multiplication"]["questions"] += 1;
-        firebase.database().ref('users/' + user.uid).set({
-          email: user.email,
-          profile_picture: user.photoURL,
-          username: user.displayName,
-          score: score1  + points,
-          statistics: statistics1,
-        }).catch(function(error) {
-          console.log(error);
-        }).then(function() {
-          multiplication();
-        });
+        score1+= points;
+
+        if (score1 > 1000) {
+          level = Math.floor(Math.log10(score1)) - 1;
+          multiplier = (level-1)*5;
+        } else {
+          level = 1;
+          multiplier = 1;
+        }
+        if (level > snapshot.val()["level"]){
+          responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + (level-1)*5 + " multiplier on all questions now.");
+          swal("Level up!", "You are now level " + level + "! You will recieve a " + (level-1)*5 + " multiplier on all questions now.", {
+            "icon": "success",
+          }).then(function(){
+            console.log(statistics1);
+            statistics1["multiplication"]["points"] += points;
+            statistics1["multiplication"]["questions"] += 1;
+            firebase.database().ref('users/' + user.uid).update({
+              score: score1,
+              statistics: statistics1,
+              level: level
+            }).catch(function(error) {
+              console.log(error);
+            }).then(function() {
+              multiplication();
+            });
+          });
+        } else {
+          console.log(statistics1);
+          statistics1["multiplication"]["points"] += points;
+          statistics1["multiplication"]["questions"] += 1;
+          firebase.database().ref('users/' + user.uid).update({
+            score: score1,
+            statistics: statistics1,
+            level: level
+          }).catch(function(error) {
+            console.log(error);
+          }).then(function() {
+            multiplication();
+          });
+        }
       });
       console.log(statistics1);
 
@@ -160,10 +202,7 @@ function evaluateAnswerMultiplication() {
       // Write user to db
 
       var user = firebase.auth().currentUser;
-      firebase.database().ref('users/' + user.uid).set({
-        email: user.email,
-        profile_picture: user.photoURL,
-        username: user.displayName,
+      firebase.database().ref('users/' + user.uid).update({
         score: parseInt(document.getElementById("score").innerText) - 2,
       }).catch(function(error) {
         console.log(error);
@@ -179,9 +218,10 @@ function evaluateAnswerAddition() {
   if (parseInt(document.getElementById("question-input-field").value) == answer) {
     var points = Math.floor(Math.floor(Math.random()*4) + (currentNumber1+currentNumber2)/2);
     responsiveVoice.speak("You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " points for that question.");
-    swal("Correct!", "You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " points for that question.", {
+    swal("Points: +" + points*multiplier, "You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.", {
       "icon": "success"
     }).then(function() {
+      points *= multiplier;
       sessionCorrect++;
       document.getElementsByClassName("session-correct-number")[0].innerHTML = sessionCorrect;
       // Write user to db
@@ -189,26 +229,49 @@ function evaluateAnswerAddition() {
       var user = firebase.auth().currentUser;
       var statistics1 = {"addition": {"questions": 0, "points": 0}, "multiplication": {"questions": 0, "points": 0}};
       var score1;
-      console.log("191 hi")
+      var level;
       return firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-        console.log(snapshot.val());
-        console.log(snapshot.val()["statistics"]);
         statistics1 = snapshot.val()["statistics"];
         score1 = snapshot.val()["score"];
-        console.log(statistics1);
-        statistics1["addition"]["points"] += points;
-        statistics1["addition"]["questions"] += 1;
-        firebase.database().ref('users/' + user.uid).set({
-          email: user.email,
-          profile_picture: user.photoURL,
-          username: user.displayName,
-          score: score1  + points,
-          statistics: statistics1,
-        }).catch(function(error) {
-          console.log(error);
-        }).then(function() {
-          addition();
-        });
+        score1 += points;
+
+        if (score1 > 1000) {
+          level = Math.floor(Math.log10(score1)) - 1;
+          multiplier = (level-1)*5;
+        } else {
+          level = 1;
+          multiplier = 1;
+        }
+        if (level > snapshot.val()["level"]){
+          responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + (level-1)*5 + " multiplier on all questions now.");
+          swal("Level up!", "You are now level " + level + "! You will recieve a " + (level-1)*5 + " multiplier on all questions now.", {
+            "icon": "success",
+          }).then(function(){
+            statistics1["addition"]["points"] += points;
+            statistics1["addition"]["questions"] += 1;
+            firebase.database().ref('users/' + user.uid).update({
+              score: score1,
+              statistics: statistics1,
+              level: level,
+            }).catch(function(error) {
+              console.log(error);
+            }).then(function() {
+              addition();
+            });
+          });
+        } else {
+          statistics1["addition"]["points"] += points;
+          statistics1["addition"]["questions"] += 1;
+          firebase.database().ref('users/' + user.uid).update({
+            score: score1,
+            statistics: statistics1,
+            level: level,
+          }).catch(function(error) {
+            console.log(error);
+          }).then(function() {
+            addition();
+          });
+        }
       });
       console.log(statistics1);
     });
@@ -223,10 +286,7 @@ function evaluateAnswerAddition() {
       // Write user to db
 
       var user = firebase.auth().currentUser;
-      firebase.database().ref('users/' + user.uid).set({
-        email: user.email,
-        profile_picture: user.photoURL,
-        username: user.displayName,
+      firebase.database().ref('users/' + user.uid).update({
         score: parseInt(document.getElementById("score").innerText) - 2,
       }).catch(function(error) {
         console.log(error);

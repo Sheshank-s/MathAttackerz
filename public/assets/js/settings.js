@@ -85,12 +85,10 @@ function updateSettings() {
     score = snapshot.val().score;
     console.log(score["score"]);
     // Write user to db
-    firebase.database().ref('users/' + uid).set({
+    firebase.database().ref('users/' + uid).update({
       username: name,
       email: email,
       profile_picture : photoUrl,
-      score: score,
-      statistics: snapshot.val().statistics,
     }).catch(function(error) {
       console.log(error);
     }).then(function() {

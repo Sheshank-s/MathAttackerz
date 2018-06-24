@@ -34,7 +34,7 @@ function signup() {
         timer: 1000,
       }).then(function() {
         var user = firebase.auth().currentUser;
-        var name, email, photoUrl, uid, emailVerified, score;
+        var name, email, photoUrl, uid, emailVerified, score, level;
         console.log(user);
         if (user != null) {
           user.updateProfile({
@@ -49,11 +49,13 @@ function signup() {
             uid = user.uid;
             console.log(name + " " + email + " " + photoUrl + " " + uid);
             score = 0;
+            level = 1;
 
             // Write user to db
             firebase.database().ref('users/' + uid).set({
               username: name,
               email: email,
+              level: level,
               profile_picture : photoUrl,
               score: score,
               statistics: {"addition":{"points": 0, "questions": 0}, "multiplication":{"points": 0, "questions": 0}},
