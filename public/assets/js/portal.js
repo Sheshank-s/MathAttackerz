@@ -48,6 +48,7 @@ function leaderboard() {
     leaderboardVal = snapshot.val();
     var size = Object.keys(leaderboardVal).length;
     console.log(size);
+    tempLeaderboardVal = [];
     for (var i = 0; i < size; i++) {
       tempLeaderboardVal.push(leaderboardVal[Object.keys(leaderboardVal)[i]]);
     }
