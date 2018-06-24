@@ -156,8 +156,13 @@ function evaluateAnswerMultiplication() {
         score1+= points;
 
         if (score1 > 1000) {
-          level = Math.floor(Math.log10(score1)/Math.log10(5)) - 2
-          multiplier = (level-1)*5;
+          if (score1 > 7000) {
+            level = Math.floor(Math.log10(score1)/Math.log10(2)) - 7;
+            multiplier = (level-1)*5;
+          } else {
+            level = Math.floor(Math.log10(score1)/Math.log10(3)) - 4;
+            multiplier = (level-1)*5;
+          }
         } else {
           level = 1;
           multiplier = 1;
@@ -244,8 +249,13 @@ function evaluateAnswerAddition() {
         score1 += points;
 
         if (score1 > 1000) {
-          level = Math.floor(Math.log10(score1)/Math.log10(5)) - 2;
-          multiplier = (level-1)*5;
+          if (score1 > 7000) {
+            level = Math.floor(Math.log10(score1)/Math.log10(2)) - 7;
+            multiplier = (level-1)*5;
+          } else {
+            level = Math.floor(Math.log10(score1)/Math.log10(3)) - 4;
+            multiplier = (level-1)*5;
+          }
         } else {
           level = 1;
           multiplier = 1;
