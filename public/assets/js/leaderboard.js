@@ -9,6 +9,7 @@ function leaderboard() {
     leaderboardVal = snapshot.val();
     var size = Object.keys(leaderboardVal).length;
     console.log(size);
+    tempLeaderboardVal = [];
     for (var i = 0; i < size; i++) {
       tempLeaderboardVal.push(leaderboardVal[Object.keys(leaderboardVal)[i]]);
     }
@@ -19,7 +20,10 @@ function leaderboard() {
     });
     leaderboardVal.reverse();
     console.log(leaderboardVal);
-
+    var myNode = document.getElementById("dropbox-leaderboard");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
     for (var i = 1; i <= leaderboardVal.length; i++) {
       var tr = document.createElement("TR");
       var tdPlace = document.createElement("TD");
