@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="assets/css/leaderboard.css">
+    <link rel="stylesheet" href="assets/css/statistics.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
@@ -40,6 +40,9 @@
     <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-functions.js"></script> -->
+
+    <!-- Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   </head>
   <body>
@@ -76,8 +79,9 @@
         <div class="mdl-typography--text-center">
           <div class="page-content">
             <div class="score-container-div">
-              <div class="logo-font slogan">Leaderboard</div>
-              <div class="logo-font sub-slogan">Compare your stats against others</div>
+              <div class="logo-font slogan">Statistics:</div>
+              <div class="logo-font sub-slogan">Your current Score: <span id="score"></span></div>
+
               <a>
                 <!-- Colored raised button -->
                 <button onclick="window.location.href= 'game.html';" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
@@ -95,32 +99,37 @@
 
             <div class="recent-activity">
 
+              <h5>Questions breakdown (Wrong Questions not included.):</h5>
+              <p>Questions answered before the creation of this feature were equally distributed to each category. For ex, if you had 300 points before this update, you would have 150 points in multiplication and 150 points in addition.</p>
 
+              <div id="piechart1">
+                <!-- MDL Spinner Component -->
+                <div class="mdl-spinner mdl-js-spinner is-active"></div>
+              </div>
 
-              <div class="leaderboard">
-                <table id="leaderboard">
-                  <td valign="top">
-                    <h5>Overall Leaderboard:</h5>
-                    <table id="overall-leaderboard-table" class="mdl-data-table mdl-js-data-table">
-                      <thead>
-                      <tr>
-                        <th>Place</th>
-                        <th class="mdl-data-table__cell--non-numeric">Username</th>
-                        <th>Score</th>
-                      </tr>
-                      </thead>
-                      <tbody id="dropbox-leaderboard">
-                      </tbody>
-                    </table>
-                  </td>
+              <p>
+                <br>
+                Total Questions: <strong><span id="totalquestions"></span></strong><br>
+                Total Multiplication Questions: <strong><span id="totalmultiplicationquestions"></span></strong><br>
+                Total Addition Questions: <strong><span id="totaladditionquestions"></span></strong>
+              </p>
 
-                </table>
+              <h5>Score breakdown (Wrong Questions not included.): </h5>
+              <p>Points earned before the creation of this feature were equally distributed to each category. For ex, if you had 300 points before this update, you would have 150 points in multiplication and 150 points in addition.</p>
 
+              <div id="piechart">
+                <!-- MDL Spinner Component -->
+                <div class="mdl-spinner mdl-js-spinner is-active"></div>
               </div>
 
 
-              <br>
-              <br>
+              <p>
+                <br>
+                Total Points: <strong><span id="totalpoints"></span></strong><br>
+                Total Points earned from Multiplication Questions: <strong><span id="totalmultiplicationpoints"></span></strong><br>
+                Total Points earned from Addition Questions: <strong><span id="totaladditionpoints"></span></strong>
+              </p>
+
 
 
             </div>
@@ -134,6 +143,6 @@
 
     <script src="assets/js/config.js" ></script>
 
-    <script src="assets/js/leaderboard.js" ></script>
+    <script src="assets/js/statistics.js" ></script>
   </body>
 </html>

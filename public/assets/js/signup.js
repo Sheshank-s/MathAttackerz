@@ -56,6 +56,7 @@ function signup() {
               email: email,
               profile_picture : photoUrl,
               score: score,
+              statistics: {"addition":{"points": 0, "questions": 0}, "multiplication":{"points": 0, "questions": 0}},
             }).catch(function(error) {
               console.log(error);
             }).then(function() {

@@ -121,16 +121,32 @@ function evaluateAnswerMultiplication() {
       // Write user to db
 
       var user = firebase.auth().currentUser;
-      firebase.database().ref('users/' + user.uid).set({
-        email: user.email,
-        profile_picture: user.photoURL,
-        username: user.displayName,
-        score: parseInt(document.getElementById("score").innerText)  + points,
-      }).catch(function(error) {
-        console.log(error);
-      }).then(function() {
-        multiplication();
+
+      var databaseUser = firebase.database().ref('users/' + user.uid);
+      var statistics1 = {"addition": {"questions": 0, "points": 0}, "multiplication": {"questions": 0, "points": 0}};
+      var score;
+      return firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+        console.log(snapshot.val());
+        console.log(snapshot.val()["statistics"]);
+        statistics1 = snapshot.val()["statistics"];
+        score1 = snapshot.val()["score"];
+        console.log(statistics1);
+        statistics1["multiplication"]["points"] += points;
+        statistics1["multiplication"]["questions"] += 1;
+        firebase.database().ref('users/' + user.uid).set({
+          email: user.email,
+          profile_picture: user.photoURL,
+          username: user.displayName,
+          score: score1  + points,
+          statistics: statistics1,
+        }).catch(function(error) {
+          console.log(error);
+        }).then(function() {
+          multiplication();
+        });
       });
+      console.log(statistics1);
+
     });
   } else {
     responsiveVoice.speak("You are incorrect. " + currentNumber1 + " times " + currentNumber2 + " does not equal " + document.getElementById("question-input-field").value + ". It actually equals " + answer + ". You will lose 2 points.");
@@ -170,14 +186,30 @@ function evaluateAnswerAddition() {
       // Write user to db
 
       var user = firebase.auth().currentUser;
-      firebase.database().ref('users/' + user.uid).set({
-        email: user.email,
-        profile_picture: user.photoURL,
-        username: user.displayName,
-        score: parseInt(document.getElementById("score").innerText)  + points,
-      }).catch(function(error) {
-        console.log(error);
+      var statistics1 = {"addition": {"questions": 0, "points": 0}, "multiplication": {"questions": 0, "points": 0}};
+      var score1;
+      console.log("191 hi")
+      return firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+        console.log(snapshot.val());
+        console.log(snapshot.val()["statistics"]);
+        statistics1 = snapshot.val()["statistics"];
+        score1 = snapshot.val()["score"];
+        console.log(statistics1);
+        statistics1["addition"]["points"] += points;
+        statistics1["addition"]["questions"] += 1;
+        firebase.database().ref('users/' + user.uid).set({
+          email: user.email,
+          profile_picture: user.photoURL,
+          username: user.displayName,
+          score: score1  + points,
+          statistics: statistics1,
+        }).catch(function(error) {
+          console.log(error);
+        }).then(function() {
+          addition();
+        });
       });
+      console.log(statistics1);
     });
   } else {
     swal("Oh noes!", "You are incorrect. " + currentNumber1 + " plus " + currentNumber2 + " does not equal " + document.getElementById("question-input-field").value + ". It actually equals " + answer + ". You will lose 2 points.", {
