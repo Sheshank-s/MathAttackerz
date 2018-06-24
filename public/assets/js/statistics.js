@@ -34,6 +34,10 @@ function getScore() {
   starCountRef.on('value', function(snapshot) {
     document.getElementById("score").innerText = snapshot.val();
   });
+  var starCountRef2 = firebase.database().ref('users/' + user.uid + '/level');
+  starCountRef2.on('value', function(snapshot) {
+    document.getElementById("level").innerText = snapshot.val();
+  });
   charts()
 }
 

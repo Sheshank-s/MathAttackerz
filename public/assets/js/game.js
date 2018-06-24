@@ -43,8 +43,8 @@ function addition() {
   var questionDiv = document.getElementById("question-content");
 
   var questionBank = additionQuestion;
-  currentNumber1 = Math.floor(Math.random() * 10) + 1;
-  currentNumber2 = Math.floor(Math.random() * 10) + 1;
+  currentNumber1 = Math.floor(Math.random() * 7) + 4;
+  currentNumber2 = Math.floor(Math.random() * 7) + 4;
   var randomQuestionNumber = Math.floor(Math.random() * (questionBank.length));
   var questionPartOne = questionBank[randomQuestionNumber]["namePartOne"] + " " + currentNumber1;
   var questionPartTwo = questionBank[randomQuestionNumber]["namePartTwo"] + " " + currentNumber2;
@@ -106,11 +106,16 @@ function multiplication() {
 var multiplier;
 function getScore() {
   document.getElementById("title").innerHTML = "Score: <span id='score'></span>";
+  document.getElementById("sub-title").innerHTML = "Level: <span id='level'></span>";
   var user = firebase.auth().currentUser;
   console.log(user.uid);
   var starCountRef = firebase.database().ref('users/' + user.uid + '/score');
+  var starCountRef2 = firebase.database().ref('users/' + user.uid + '/level');
   starCountRef.on('value', function(snapshot) {
     document.getElementById("score").innerText = snapshot.val();
+  });
+  starCountRef2.on('value', function(snapshot) {
+    document.getElementById("level").innerText = snapshot.val();
   });
   return firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
     if (snapshot.val().level > 1) {
@@ -124,7 +129,9 @@ function getScore() {
 function evaluateAnswerMultiplication() {
   var answer = currentNumber1 * currentNumber2;
   if (parseInt(document.getElementById("question-input-field").value) == answer) {
-    var points = Math.floor(Math.floor(Math.random()*4) + (currentNumber1+currentNumber2)/2);
+    var random = Math.floor(Math.random()*10);
+    var points = Math.floor(random + (currentNumber1+currentNumber2)/2);
+    console.log(points + " " + random);
     responsiveVoice.speak("You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.");
 
     swal("Points: +" + points*multiplier, "You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.", {
@@ -149,7 +156,7 @@ function evaluateAnswerMultiplication() {
         score1+= points;
 
         if (score1 > 1000) {
-          level = Math.floor(Math.log10(score1)) - 1;
+          level = Math.floor(Math.log10(score1)/Math.log10(5)) - 2
           multiplier = (level-1)*5;
         } else {
           level = 1;
@@ -216,8 +223,9 @@ function evaluateAnswerMultiplication() {
 function evaluateAnswerAddition() {
   var answer = currentNumber1 + currentNumber2;
   if (parseInt(document.getElementById("question-input-field").value) == answer) {
-    var points = Math.floor(Math.floor(Math.random()*4) + (currentNumber1+currentNumber2)/2);
-    responsiveVoice.speak("You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " points for that question.");
+    var random = Math.floor(Math.random()*10);
+    var points = Math.floor(random + (currentNumber1+currentNumber2)/2);
+    responsiveVoice.speak("You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.");
     swal("Points: +" + points*multiplier, "You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.", {
       "icon": "success"
     }).then(function() {
@@ -236,7 +244,7 @@ function evaluateAnswerAddition() {
         score1 += points;
 
         if (score1 > 1000) {
-          level = Math.floor(Math.log10(score1)) - 1;
+          level = Math.floor(Math.log10(score1)/Math.log10(5)) - 2;
           multiplier = (level-1)*5;
         } else {
           level = 1;
@@ -290,8 +298,10 @@ function evaluateAnswerAddition() {
         score: parseInt(document.getElementById("score").innerText) - 2,
       }).catch(function(error) {
         console.log(error);
+      }).then(function(){
+        addition();
       });
     });
   }
-  addition();
+
 }
