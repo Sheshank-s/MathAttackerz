@@ -50,6 +50,7 @@ function addition() {
   var questionPartTwo = questionBank[randomQuestionNumber]["namePartTwo"] + " " + currentNumber2;
   var questionPartThree = questionBank[randomQuestionNumber]["namePartThree"];
   question = questionPartOne + " " + questionPartTwo + " " + questionPartThree;
+  responsiveVoice.speak(question);
 
   questionDiv.innerHTML =
   `<div class="question-title">Addition</div>
@@ -177,10 +178,10 @@ function evaluateAnswerAddition() {
   var answer = currentNumber1 + currentNumber2;
   if (parseInt(document.getElementById("question-input-field").value) == answer) {
     var points = Math.floor(Math.floor(Math.random()*4) + (currentNumber1+currentNumber2)/2);
+    responsiveVoice.speak("You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " points for that question.");
     swal("Correct!", "You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " points for that question.", {
       "icon": "success"
     }).then(function() {
-      responsiveVoice.speak(question);
       sessionCorrect++;
       document.getElementsByClassName("session-correct-number")[0].innerHTML = sessionCorrect;
       // Write user to db
@@ -212,10 +213,10 @@ function evaluateAnswerAddition() {
       console.log(statistics1);
     });
   } else {
+    responsiveVoice.speak("You are incorrect. " + currentNumber1 + " plus " + currentNumber2 + " does not equal " + document.getElementById("question-input-field").value + ". It actually equals " + answer + ". You will lose 2 points.");
     swal("Oh noes!", "You are incorrect. " + currentNumber1 + " plus " + currentNumber2 + " does not equal " + document.getElementById("question-input-field").value + ". It actually equals " + answer + ". You will lose 2 points.", {
       "icon": "error"
     }).then(function() {
-      responsiveVoice.speak(question);
       sessionWrong++;
       document.getElementsByClassName("session-wrong-number")[0].innerHTML = sessionWrong;
 

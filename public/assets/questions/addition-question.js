@@ -17,7 +17,7 @@ var additionQuestion = [
   {
     "namePartOne": "There are",
     "namePartTwo": "houses in Chockville. There are",
-    "namePartThree": "houses in Rockville. If Chockville and Rockville are the only cities in the state Wamvia, how many cities are in Wamvia?"
+    "namePartThree": "houses in Rockville. If Chockville and Rockville are the only cities in the state Wamvia, how many houses are in Wamvia?"
   },
   {
     "namePartOne": "If one bag has",
