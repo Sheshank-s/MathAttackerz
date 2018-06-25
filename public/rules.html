@@ -11,8 +11,6 @@
       gtag('config', 'UA-81213477-10');
     </script>
 
-
-
     <meta charset="utf-8">
     <title>MathAttackerz</title>
 
@@ -23,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="assets/css/portal.css">
+    <link rel="stylesheet" href="assets/css/rules.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
@@ -42,9 +40,6 @@
     <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-functions.js"></script> -->
-
-    <!-- Charts -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   </head>
   <body>
@@ -67,8 +62,6 @@
         <br>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="portal.html">Portal</a>
-          <a class="mdl-navigation__link" href="leaderboard.html">Leaderboard</a>
-          <a class="mdl-navigation__link" href="statistics.html">Statistics</a>
           <a class="mdl-navigation__link" href="about.html">About</a>
           <a class="mdl-navigation__link" href="contact.html">Contact</a>
           <a class="mdl-navigation__link" href="http://mathattackerz.blogspot.com/">Updates Blog</a>
@@ -81,60 +74,34 @@
         <div class="mdl-typography--text-center">
           <div class="page-content">
             <div class="score-container-div">
-              <div class="logo-font slogan">Welcome back, <span id="name"></span></div>
-              <div class="logo-font sub-slogan">Your current Score: <span id="score"></span></div>
-
-              <a>
-                <!-- Colored raised button -->
-                <button onclick="window.location.href= 'game.html';" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                  Get more points
-                </button>
-              </a>
-              &nbsp;
-              <a>
-                <!-- Colored raised button -->
-                <button onclick="window.location.href= 'game.html';" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                  RULES
-                </button>
-              </a>
+              <div class="logo-font slogan">Rules</div>
+              <div class="logo-font sub-slogan">How to play the game.</div>
             </div>
 
             <div class="recent-activity">
+              <h5>Gameplay:</h5>
+              <p>All you need to do to play the game is have an account on the site (You can get one <a href="signup.html">here</a> if you don't have one) and a good brain for math! Just navigate to <a href="https://mathattackerz.ga/game.html">https://mathattackerz.ga/game.html</a> to get started. Choose your mode (Addition or Multiplication), and then answer the questions. The questions will be read aloud to you, and all you need to do is type in the answer. If it is correct you will recieve a certian amount of points, and if it is wrong you will lose 2 points.</p>
+              <h5>Scoring:</h5>
+              <p>MathAttackerz uses complex algorithms to give you your score. Your score for each question is the sum of a random number between 0-10 and the average of the two numbers in the question, <i>times</i> your multiplier. Your multiplier is given by a complex algorithm your level.
+                <br>
+                <br>
+                <b>SCORE:</b> = (Random number from 0 to 10 + The average of the two numbers in your question) x Your Multiplier
+              </p>
+              <h5>Leveling up</h5>
+              <p>In short terms, levels make your multiplier go up, and that's really it! There are complex algorithms that decide when you level up, but here is a approximate list of what score you need to have to level up: <br><br>
+                <ul>
+                  <li>0     - Level 1</li>
+                  <li>500   - Level 2</li>
+                  <li>700   - Level 3</li>
+                  <li>2100  - Level 4</li>
+                  <li>10000 - Level 5</li>
+                </ul>
+                <br>
+                The multipliers for levels can get really really high! For example, on Level 21, the multiplier is over <b>2,000,000</b> points, which gives an average of <b>18,000,000</b> points a round!
+              </p>
 
-              <h4><b>NOTICE:</b> The rules and scoring have changed. Please go read the rules <a style="color:blue;" href="rules.html">here</a>.</h4>
-              <br>
-              <br>
-              <h5>Is your score not loading? Any problem with your account?</h5>
-
-              Take this <a style="color:blue;" href="https://docs.google.com/forms/d/e/1FAIpQLSdmE_vyBSqIID1rB7GcwK6KjQ-lOghWTtMW5dZhojYCIFYsPg/viewform?usp=sf_link">quick form</a> to repair your account.
-
-              <br>
-
-
-              <h5>Found a bug? Have feedback?</h5>
-
-              Report it <a style="color:blue;" href="https://goo.gl/forms/Ql2sboK6BEkp6rSa2">here</a>. If it's a new bug that hasn't been reported before or helpful feedback, you will get extra points.
-<br>
-              <h5>Top 5 Overall Players:</h5>
-
-              <div class="leaderboard" id="leaderboard">
-
-              </div>
-                            <br>
-                            View the full leaderboard <a href="leaderboard.html" style="color:blue;">here</a>.
-
-                            <br>
-                            <br>
-                            <h5>Your recent Activity:</h5>
-
-                            Coming Soon...
-
-
-              <br>
-              <br>
-              <h5>Daily Leaderboard:</h5>
-
-              Coming Soon...
+              <h5>Questions? Comments? Concerns?</h5>
+              <p>Have a question? Have some feedback? Bug report?</p>
 
             </div>
 
@@ -147,6 +114,6 @@
 
     <script src="assets/js/config.js" ></script>
 
-    <script src="assets/js/portal.js" ></script>
+    <script src="assets/js/rules.js" ></script>
   </body>
 </html>

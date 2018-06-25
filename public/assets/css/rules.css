@@ -1,0 +1,107 @@
+.basic-background {
+  background: url('../images/backgrounds/8.jpg');
+  background-position: center;
+  height: 100%;
+  display: block;
+}
+
+.slogan {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #f9f9f9;
+  padding: 0px;
+  font-weight: 700;
+  font-size: 60px;
+  margin: 30px 50px;
+}
+.sub-slogan {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #f9f9f9;
+  font-weight: 400;
+  font-size: 20px;
+  margin: 30px 50px;
+}
+
+.page-content {
+  width: 80%;
+  margin: 50px auto;
+  background-color: #ececec;
+  padding-bottom: 50px;
+  min-height: 1000px;
+  box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);
+}
+
+.user-div-profile-picture {
+  height: 70px;
+  margin-right: 10px;
+}
+
+.user-div-info {
+  height: 70px;
+  margin-right: 10px;
+}
+
+
+.user-div {
+  color: #f9f9f9;
+  width: fit-content;
+  margin: 20px;
+  padding: 5px;
+}
+
+
+.score-container-div {
+  background-color: #1A78C2;
+  width: 100%;
+  padding: 50px 0px;
+}
+
+body {
+    margin: 0;
+    background-color: #f9a93c;
+}
+
+.recent-activity {
+  padding: 50px 100px;
+  text-align: left;
+
+}
+p a {
+  color: blue;
+}
+@media only screen and (max-width: 1016px) {
+  .slogan {
+    font-size: 40px;
+  }
+  .sub-slogan {
+    font-size: 18px;
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .slogan {
+    font-size: 35px;
+  }
+  .sub-slogan {
+    font-size: 17px;
+    margin-top: 30px;
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .slogan {
+    font-size: 35px;
+    margin: 0px 20px;
+  }
+  .sub-slogan {
+    font-size: 16px;
+    margin-top: 30px;
+    margin: 30px 20px;
+  }
+  body {
+    background-color: #f57b39;
+  }
+}

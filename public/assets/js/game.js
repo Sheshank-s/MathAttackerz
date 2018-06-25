@@ -132,6 +132,7 @@ function multiplication() {
 
 }
 var multiplier;
+var score;
 function getScore() {
   document.getElementById("title").innerHTML = "Score: <span id='score'></span>";
   document.getElementById("sub-title").innerHTML = "Level: <span id='level'></span>";
@@ -141,6 +142,7 @@ function getScore() {
   var starCountRef2 = firebase.database().ref('users/' + user.uid + '/level');
   starCountRef.on('value', function(snapshot) {
     document.getElementById("score").innerText = c(snapshot.val());
+    score = snapshot.val();
   });
   starCountRef2.on('value', function(snapshot) {
     document.getElementById("level").innerText = c(snapshot.val());
@@ -243,7 +245,7 @@ function evaluateAnswerMultiplication() {
 
       var user = firebase.auth().currentUser;
       firebase.database().ref('users/' + user.uid).update({
-        score: parseInt(document.getElementById("score").innerText) - 2,
+        score: parseInt(score) - 2,
       }).catch(function(error) {
         console.log(error);
       }).then(function() {
@@ -333,7 +335,7 @@ function evaluateAnswerAddition() {
 
       var user = firebase.auth().currentUser;
       firebase.database().ref('users/' + user.uid).update({
-        score: parseInt(document.getElementById("score").innerText) - 2,
+        score: parseInt(score) - 2,
       }).catch(function(error) {
         console.log(error);
       }).then(function(){
