@@ -1,5 +1,5 @@
-if (window.location.href ==  "https://mathattackerz.firebaseapp.com/") {
-  window.location.href = "https://mathttackerz.ga";
+if (window.location.hostname ==  "mathattackerz.firebaseapp.com") {
+  window.location.href = "https://mathattackerz.ga";
 }
 window.onload = function() {
   if (localStorage.viewed != "true") {

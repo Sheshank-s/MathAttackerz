@@ -40,6 +40,7 @@ function getScore() {
   });
   leaderboard();
 }
+
 var leaderboardVal;
 var tempLeaderboardVal = [];
 function leaderboard() {
@@ -68,6 +69,7 @@ function leaderboard() {
       <th>Place</th>
       <th class="mdl-data-table__cell--non-numeric">Username</th>
       <th>Score</th>
+      <th>Level</th>
     </tr>
   </thead>
   <tbody>
@@ -75,26 +77,31 @@ function leaderboard() {
       <td>1.</td>
       <td id="1name" class="mdl-data-table__cell--non-numeric">The smart one</td>
       <td id="1score">40</td>
+      <td id="1level">40</td>
     </tr>
     <tr>
       <td>2.</td>
       <td id="2name" class="mdl-data-table__cell--non-numeric">The smart one</td>
       <td id="2score">40</td>
+      <td id="2level">40</td>
     </tr>
     <tr>
       <td>3.</td>
       <td id="3name" class="mdl-data-table__cell--non-numeric">The smart one</td>
       <td id="3score">40</td>
+      <td id="3level">40</td>
     </tr>
     <tr>
       <td>4.</td>
       <td id="4name" class="mdl-data-table__cell--non-numeric">The smart one</td>
       <td id="4score">40</td>
+      <td id="4level">40</td>
     </tr>
     <tr>
       <td>5.</td>
       <td id="5name" class="mdl-data-table__cell--non-numeric">The smart one</td>
       <td id="5score">40</td>
+      <td id="5level">40</td>
     </tr>
   </tbody>
 </table>
@@ -103,6 +110,7 @@ function leaderboard() {
     for (var i = 1; i <= 5; i++) {
       document.getElementById(i + "name").innerText = leaderboardVal[i-1].username;
       document.getElementById(i + "score").innerText = leaderboardVal[i-1].score;
+      document.getElementById(i + "level").innerText = leaderboardVal[i-1].level;
     }
   });
 }

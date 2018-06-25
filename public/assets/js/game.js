@@ -40,6 +40,7 @@ function rules() {
 }
 var question;
 function addition() {
+
   var questionDiv = document.getElementById("question-content");
 
   var questionBank = additionQuestion;
@@ -63,9 +64,22 @@ function addition() {
     </div>
   </div>
   <!-- Accent-colored raised button with ripple -->
-  <button style="display:inline-block;" onclick="evaluateAnswerAddition()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+  <button id="addition-submit" style="display:inline-block;" onclick="evaluateAnswerAddition()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
     Submit
   </button>`;
+  // Get the input field
+  var input = document.getElementById("question-input-field");
+
+  // Execute a function when the user releases a key on the keyboard
+  input.addEventListener("keyup", function(event) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      // Trigger the button element with a click
+      document.getElementById("addition-submit").click();
+    }
+  });
   document.getElementById("title").innerHTML = "Score: <span id='score'></span>";
   var user = firebase.auth().currentUser;
   var starCountRef = firebase.database().ref('users/' + user.uid + '/score');
@@ -76,6 +90,7 @@ function addition() {
 var currentNumber1;
 var currentNumber2;
 function multiplication() {
+
   var questionDiv = document.getElementById("question-content");
 
   var questionBank = multiplicationQuestion;
@@ -98,9 +113,22 @@ function multiplication() {
     </div>
   </div>
   <!-- Accent-colored raised button with ripple -->
-  <button style="display:inline-block;" onclick="evaluateAnswerMultiplication()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+  <button id="multiplication-submit" style="display:inline-block;" onclick="evaluateAnswerMultiplication()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
     Submit
   </button>`;
+  // Get the input field
+  var input = document.getElementById("question-input-field");
+
+  // Execute a function when the user releases a key on the keyboard
+  input.addEventListener("keyup", function(event) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      // Trigger the button element with a click
+      document.getElementById("multiplication-submit").click();
+    }
+  });
 
 }
 var multiplier;
@@ -119,7 +147,7 @@ function getScore() {
   });
   return firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
     if (snapshot.val().level > 1) {
-      multiplier = (snapshot.val().level-1)*5;
+      multiplier = (5+Math.pow(2,snapshot.val().level));
     } else {
       multiplier = 1;
     }
@@ -158,18 +186,18 @@ function evaluateAnswerMultiplication() {
         if (score1 > 1000) {
           if (score1 > 7000) {
             level = Math.floor(Math.log10(score1)/Math.log10(2)) - 7;
-            multiplier = (level-1)*5;
+            multiplier = (5+Math.pow(2,level));
           } else {
             level = Math.floor(Math.log10(score1)/Math.log10(3)) - 4;
-            multiplier = (level-1)*5;
+            multiplier = (5+Math.pow(2,level));
           }
         } else {
           level = 1;
           multiplier = 1;
         }
         if (level > snapshot.val()["level"]){
-          responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + (level-1)*5 + " multiplier on all questions now.");
-          swal("Level up!", "You are now level " + level + "! You will recieve a " + (level-1)*5 + " multiplier on all questions now.", {
+          responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + (5+Math.pow(2,level)) + " multiplier on all questions now.");
+          swal("Level up!", "You are now level " + level + "! You will recieve a " + (5+Math.pow(2,level)) + " multiplier on all questions now.", {
             "icon": "success",
           }).then(function(){
             console.log(statistics1);
@@ -248,21 +276,21 @@ function evaluateAnswerAddition() {
         score1 = snapshot.val()["score"];
         score1 += points;
 
-        if (score1 > 1000) {
-          if (score1 > 7000) {
+        if (score1 > 500) {
+          if (score1 > 5000) {
             level = Math.floor(Math.log10(score1)/Math.log10(2)) - 7;
-            multiplier = (level-1)*5;
+            multiplier = (5+Math.pow(2,level));
           } else {
-            level = Math.floor(Math.log10(score1)/Math.log10(3)) - 4;
-            multiplier = (level-1)*5;
+            level = Math.floor(Math.log10(score1)/Math.log10(3)) - 3;
+            multiplier = (5+Math.pow(2,level));
           }
         } else {
           level = 1;
           multiplier = 1;
         }
         if (level > snapshot.val()["level"]){
-          responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + (level-1)*5 + " multiplier on all questions now.");
-          swal("Level up!", "You are now level " + level + "! You will recieve a " + (level-1)*5 + " multiplier on all questions now.", {
+          responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + (5+Math.pow(2,level)) + " multiplier on all questions now.");
+          swal("Level up!", "You are now level " + level + "! You will recieve a " + (5+Math.pow(2,level)) + " multiplier on all questions now.", {
             "icon": "success",
           }).then(function(){
             statistics1["addition"]["points"] += points;

@@ -35,12 +35,17 @@ function leaderboard() {
       tdName.setAttributeNode(att);
       var tdScore = document.createElement("TD");
       tdScore.id = i + "score";
+      var tdLevel = document.createElement("TD");
+      tdLevel.id = i + "level";
       tr.appendChild(tdPlace);
       tr.appendChild(tdName);
       tr.appendChild(tdScore);
+      tr.appendChild(tdLevel);
       document.getElementById("dropbox-leaderboard").appendChild(tr);
       document.getElementById(i + "name").innerText = leaderboardVal[i-1].username;
       document.getElementById(i + "score").innerText = leaderboardVal[i-1].score;
+      document.getElementById(i + "level").innerText = leaderboardVal[i-1].level;
     }
+    document.getElementById("loading").style.display = "none";
   });
 }
