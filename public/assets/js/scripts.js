@@ -1,3 +1,8 @@
+
+function c(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 if (window.location.hostname ==  "mathattackerz.firebaseapp.com") {
   window.location.href = "https://mathattackerz.ga";
 }

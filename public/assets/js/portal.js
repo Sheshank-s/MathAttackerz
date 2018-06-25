@@ -33,7 +33,7 @@ function getScore() {
   var starCountRef = firebase.database().ref('users/' + user.uid + '/score');
   var starCountRef2 = firebase.database().ref('users/' + user.uid + '/username');
   starCountRef.on('value', function(snapshot) {
-    document.getElementById("score").innerText = snapshot.val();
+    document.getElementById("score").innerText = c(snapshot.val());
   });
   starCountRef2.on('value', function(snapshot) {
     document.getElementById("name").innerText = snapshot.val();
@@ -109,8 +109,8 @@ function leaderboard() {
 
     for (var i = 1; i <= 5; i++) {
       document.getElementById(i + "name").innerText = leaderboardVal[i-1].username;
-      document.getElementById(i + "score").innerText = leaderboardVal[i-1].score;
-      document.getElementById(i + "level").innerText = leaderboardVal[i-1].level;
+      document.getElementById(i + "score").innerText = c(leaderboardVal[i-1].score);
+      document.getElementById(i + "level").innerText = c(leaderboardVal[i-1].level);
     }
   });
 }

@@ -59,7 +59,7 @@ function addition() {
   <div class="question-input">
     <!-- Numeric Textfield with Floating Label -->
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input placeholder="Your Answer Goes Here..." class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="question-input-field" autofocus></input>
+      <input  onmouseup="setTimeout(function(){document.getElementById('login').focus()},10);" placeholder="Your Answer Goes Here..." class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="question-input-field" autofocus></input>
       <span class="mdl-textfield__error">Input is not a number!</span>
     </div>
   </div>
@@ -84,7 +84,7 @@ function addition() {
   var user = firebase.auth().currentUser;
   var starCountRef = firebase.database().ref('users/' + user.uid + '/score');
   starCountRef.on('value', function(snapshot) {
-    document.getElementById("score").innerText = snapshot.val();
+    document.getElementById("score").innerText = c(snapshot.val());
   });
 }
 var currentNumber1;
@@ -140,10 +140,10 @@ function getScore() {
   var starCountRef = firebase.database().ref('users/' + user.uid + '/score');
   var starCountRef2 = firebase.database().ref('users/' + user.uid + '/level');
   starCountRef.on('value', function(snapshot) {
-    document.getElementById("score").innerText = snapshot.val();
+    document.getElementById("score").innerText = c(snapshot.val());
   });
   starCountRef2.on('value', function(snapshot) {
-    document.getElementById("level").innerText = snapshot.val();
+    document.getElementById("level").innerText = c(snapshot.val());
   });
   return firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
     if (snapshot.val().level > 1) {
@@ -162,7 +162,7 @@ function evaluateAnswerMultiplication() {
     console.log(points + " " + random);
     responsiveVoice.speak("You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.");
 
-    swal("Points: +" + points*multiplier, "You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.", {
+    swal("Points: +" + c(points*multiplier), "You are correct! " + currentNumber1 + " times " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + c(multiplier) + " points for that question.", {
       "icon": "success"
     }).then(function() {
       points *= multiplier;
@@ -197,7 +197,7 @@ function evaluateAnswerMultiplication() {
         }
         if (level > snapshot.val()["level"]){
           responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + (5+Math.pow(2,level)) + " multiplier on all questions now.");
-          swal("Level up!", "You are now level " + level + "! You will recieve a " + (5+Math.pow(2,level)) + " multiplier on all questions now.", {
+          swal("Level up!", "You are now level " + level + "! You will recieve a " + c(5+Math.pow(2,level)) + " multiplier on all questions now.", {
             "icon": "success",
           }).then(function(){
             console.log(statistics1);
@@ -259,7 +259,7 @@ function evaluateAnswerAddition() {
     var random = Math.floor(Math.random()*10);
     var points = Math.floor(random + (currentNumber1+currentNumber2)/2);
     responsiveVoice.speak("You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.");
-    swal("Points: +" + points*multiplier, "You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + multiplier + " points for that question.", {
+    swal("Points: +" + c(points*multiplier), "You are correct! " + currentNumber1 + " plus " + currentNumber2 + " does equal " + answer + "! You will recieve " + points + " times your multiplier of " + c(multiplier) + " points for that question.", {
       "icon": "success"
     }).then(function() {
       points *= multiplier;
@@ -289,8 +289,8 @@ function evaluateAnswerAddition() {
           multiplier = 1;
         }
         if (level > snapshot.val()["level"]){
-          responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + (5+Math.pow(2,level)) + " multiplier on all questions now.");
-          swal("Level up!", "You are now level " + level + "! You will recieve a " + (5+Math.pow(2,level)) + " multiplier on all questions now.", {
+          responsiveVoice.speak("Level up! "+"You are now level " + level + "! You will recieve a " + c(5+Math.pow(2,level)) + " multiplier on all questions now.");
+          swal("Level up!", "You are now level " + level + "! You will recieve a " + c(5+Math.pow(2,level)) + " multiplier on all questions now.", {
             "icon": "success",
           }).then(function(){
             statistics1["addition"]["points"] += points;

@@ -43,8 +43,8 @@ function leaderboard() {
       tr.appendChild(tdLevel);
       document.getElementById("dropbox-leaderboard").appendChild(tr);
       document.getElementById(i + "name").innerText = leaderboardVal[i-1].username;
-      document.getElementById(i + "score").innerText = leaderboardVal[i-1].score;
-      document.getElementById(i + "level").innerText = leaderboardVal[i-1].level;
+      document.getElementById(i + "score").innerText = c(leaderboardVal[i-1].score);
+      document.getElementById(i + "level").innerText = c(leaderboardVal[i-1].level);
     }
     document.getElementById("loading").style.display = "none";
   });

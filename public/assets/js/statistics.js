@@ -32,11 +32,11 @@ function getScore() {
   var user = firebase.auth().currentUser;
   var starCountRef = firebase.database().ref('users/' + user.uid + '/score');
   starCountRef.on('value', function(snapshot) {
-    document.getElementById("score").innerText = snapshot.val();
+    document.getElementById("score").innerText = c(snapshot.val());
   });
   var starCountRef2 = firebase.database().ref('users/' + user.uid + '/level');
   starCountRef2.on('value', function(snapshot) {
-    document.getElementById("level").innerText = snapshot.val();
+    document.getElementById("level").innerText = c(snapshot.val());
   });
   charts()
 }
@@ -83,12 +83,12 @@ function drawChart() {
     var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
     chart1.draw(data1, options1);
 
-    document.getElementById("totalquestions").innerHTML = multiplicationQuestionsRight+additionQuestionsRight;
-    document.getElementById("totaladditionquestions").innerHTML = additionQuestionsRight;
-    document.getElementById("totalmultiplicationquestions").innerHTML = multiplicationQuestionsRight
-    document.getElementById("totalpoints").innerHTML = multiplicationRight+additionRight;
-    document.getElementById("totaladditionpoints").innerHTML = additionRight;
-    document.getElementById("totalmultiplicationpoints").innerHTML = multiplicationRight;
+    document.getElementById("totalquestions").innerHTML = c(multiplicationQuestionsRight+additionQuestionsRight);
+    document.getElementById("totaladditionquestions").innerHTML = c(additionQuestionsRight);
+    document.getElementById("totalmultiplicationquestions").innerHTML = c(multiplicationQuestionsRight);
+    document.getElementById("totalpoints").innerHTML = c(multiplicationRight+additionRight);
+    document.getElementById("totaladditionpoints").innerHTML = c(additionRight);
+    document.getElementById("totalmultiplicationpoints").innerHTML = c(multiplicationRight);
   });
 
 }
