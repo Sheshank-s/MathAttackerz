@@ -13,7 +13,7 @@ How can you contribute to this?
 
 Currently, here are the three main ways to help out:
 
-*   Add more question forms. [Here](https://github.com/GreenBayRules/MathAttackerz/tree/master/public/assets/questions) is where the questions javascript file is. The question list is a array in the form of:
+*   Add more question forms. [Here](https://github.com/GreenBayRules/MathAttackerz/tree/master/public/assets/questions) is where the questions javascript file is. The question list is an array in the form of:
 
 
         [
